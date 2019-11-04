@@ -14,5 +14,27 @@ public class MathController {
 
         return a + b ;
     }
+
+    @RequestMapping(path = "/subtract/{a}/from/{b}", method = RequestMethod.GET)
+    @ResponseBody
+    public int subtract(@PathVariable int a, @PathVariable int b) {
+
+        return b - a ;
+    }
+
+    @RequestMapping(path = "/multiply/{a}/and/{b}", method = RequestMethod.GET)
+    @ResponseBody
+    public int multiply(@PathVariable int a, @PathVariable int b) {
+
+        return a * b ;
+    }
+
+    @RequestMapping(path = "/divide/{a}/by/{b}", method = RequestMethod.GET)
+    @ResponseBody
+    public int divide(@PathVariable int a, @PathVariable int b) {
+
+        return a / b ;
+    }
+
 }
 
