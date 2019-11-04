@@ -17,13 +17,13 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     @ResponseBody
-    public String individualPost(){
-        return "view an individual post";
+    public String individualPost(@PathVariable long id){
+        return "view an individual post id = " + id;
     }
 
     @GetMapping("/posts/create")
     @ResponseBody
-    public String createPostForm(){
+    public String showPostForm(){
         return "view the form for creating a post";
     }
 
