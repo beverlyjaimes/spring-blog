@@ -3,12 +3,12 @@ package com.codeup.blog.blog;
 public class Post {
     private long id;
     private String title;
-    private String description;
+    private String body;
 
-    public Post(long id, String title, String description) {
+    public Post(long id, String title, String body) {
         this.id = id;
         this.title = title;
-        this.description = description;
+        this.body = body;
     }
 
     public long getId() {
@@ -27,11 +27,11 @@ public class Post {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getBody() {
+        return body;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String body) {
+        this.body = body;
     }
 }
