@@ -13,7 +13,7 @@ public class PostController {
         ArrayList<Post> postsList;
 
     public PostController() {
-        this.postsList = new ArrayList<Post>();;
+        this.postsList = new ArrayList<Post>();
 
         postsList.add(new Post(1, "fist post", "new"));
         postsList.add(new Post(2, "second post", "Second post"));

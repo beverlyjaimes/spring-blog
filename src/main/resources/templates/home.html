@@ -5,8 +5,12 @@
     <title>Home</title>
 </head>
 <body>
-<div th:replace="fragments/navbar :: main-navbar"></div>
+<th:block th:replace="fragments/header :: main-header(false)"/>
 
+this is the index page
+<!--from fer example-->
+
+<th:block th:replace="fragments/footer :: main-footer"/>
 
 </body>
 </html>
