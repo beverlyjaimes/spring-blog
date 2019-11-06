@@ -13,23 +13,10 @@ import java.util.ArrayList;
 @Controller
 public class HomeController {
 
-//    @GetMapping("/")
-//        public String index(Model viewModel){
-//            ArrayList<Post> postsList = new ArrayList<Post>();
-//            postsList.add(new Post(1, "fist post", "new"));
-//            postsList.add(new Post(2, "second post", "Second post"));
-//
-//
-//            viewModel.addAttribute("posts", postsList);
-//
-//
-//            return "home";
-//        }
 
     @GetMapping("/")
-    @ResponseBody
-    public String index(){
-        return "This is the loading page";
+    public String index(Model viewModel){
+        return "home";
     }
 
 }

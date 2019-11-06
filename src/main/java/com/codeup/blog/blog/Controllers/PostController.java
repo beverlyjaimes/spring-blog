@@ -10,16 +10,25 @@ import java.util.ArrayList;
 @Controller
 public class PostController {
 
-//    @GetMapping("/posts")
-//    @ResponseBody
-//    public String posts(){
-//        return "posts index page";
-//    }
+        ArrayList<Post> postsList;
+
+    public PostController() {
+        this.postsList = new ArrayList<Post>();;
+
+        postsList.add(new Post(1, "fist post", "new"));
+        postsList.add(new Post(2, "second post", "Second post"));
+    }
+
+    @GetMapping("/posts")
+    public String index(Model viewModel){
+        viewModel.addAttribute("posts", postsList);
+        return "posts/index";
+    }
 
     @GetMapping("/posts/{id}")
-    @ResponseBody
-    public String individualPost(@PathVariable long id){
-        return "view an individual post id = " + id;
+    public String show(@PathVariable long id, Model viewModel){
+        viewModel.addAttribute("posts", postsList.get((int)id - 1));
+       return "posts/show";
     }
 
     @GetMapping("/posts/create")
@@ -36,31 +45,5 @@ public class PostController {
 
 
         return "create a new post";
-//        RequestParam
-//        shift test reset
-    }
-
-    @GetMapping("/post")
-    public String individualPost(Model viewModel){
-        ArrayList<Post> postsList = new ArrayList<Post>();
-        postsList.add(new Post(1, "fist post", "new"));
-
-        viewModel.addAttribute("posts", postsList);
-
-
-        return "posts/show";
-    }
-
-    @GetMapping("/posts")
-    public String allPosts(Model viewModel){
-        ArrayList<Post> postsList = new ArrayList<Post>();
-        postsList.add(new Post(1, "fist post", "new"));
-        postsList.add(new Post(2, "second post", "Second post"));
-
-
-        viewModel.addAttribute("posts", postsList);
-
-
-        return "posts/index";
     }
 }
