@@ -1,5 +1,7 @@
 package com.codeup.blog.blog;
 
+
+
 import javax.persistence.*;
 
 @Entity
@@ -7,7 +9,7 @@ import javax.persistence.*;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "Int(100) UNSIGNED", nullable = false)
+    @Column(columnDefinition = "Int(11) UNSIGNED")
     private long id;
 
     @Column(nullable = false, length = 200)
@@ -17,7 +19,6 @@ public class Post {
     private String body;
 
     public Post() {
-
     }
 
     public Post(long id, String title, String body) {
@@ -51,10 +52,9 @@ public class Post {
         return body;
     }
 
-    public void setDescription(String body) {
+    public void setBody(String body) {
         this.body = body;
     }
 
-    public void save(Post oldPost) {
-    }
+
 }

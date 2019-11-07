@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Ad</title>
+    <title>Create Post</title>
     <th:block th:replace="fragments/header :: main-header(false)"/>
 </head>
 <body>
@@ -14,7 +14,7 @@
         <h1 class="display-3 text-center">Create Post</h1>
     </header>
     <div class="card p-3">
-        <form th:action="'/posts" th:method="post">
+        <form th:action="@{'/posts'}" th:method="post">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input class="form-control" id="title" type="text" name="title" placeholder="Enter ad title">

@@ -12,7 +12,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Post findByTitle(String title);
 
     @Query("from Post a where a.id like ?1")
-    Post getPostsById(long id);
+    Post getPostById(long id);
 
     @Query("select title from Post where LENGTH(title) < 10")
     List<String> getPostsOfCertainTitleLength();

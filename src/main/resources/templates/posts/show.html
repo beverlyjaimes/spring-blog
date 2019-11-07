@@ -17,11 +17,11 @@
     </header>
 
     <div class="card p-3">
-        <h1 th:text="${posts.title}"></h1>
-        <p th:text="${posts.body}"></p>
-        <input type="hidden" name="id" th:value="${posts.id}">
-        <a th:href="@{'/posts/' + ${posts.id} + '/edit'}" class="btn btn-warning">Edit Post</a>
-        <form th:action="@{'/posts/' + ${posts.id} + '/delete'}" method="post">
+        <h1 th:text="${post.title}"></h1>
+        <p th:text="${post.body}"></p>
+        <input type="hidden" name="id" th:value="${post.id}">
+        <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-warning">Edit Post</a>
+        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
             <button class="btn btn-danger btn-block">Delete Post</button>
         </form>
     </div>
