@@ -13,7 +13,7 @@ public class Post {
     @Column(nullable = false, length = 200)
     private String title;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT")
     private String body;
 
     public Post() {
@@ -22,6 +22,11 @@ public class Post {
 
     public Post(long id, String title, String body) {
         this.id = id;
+        this.title = title;
+        this.body = body;
+    }
+
+    public Post(String title, String body) {
         this.title = title;
         this.body = body;
     }
@@ -48,5 +53,8 @@ public class Post {
 
     public void setDescription(String body) {
         this.body = body;
+    }
+
+    public void save(Post oldPost) {
     }
 }

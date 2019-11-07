@@ -7,9 +7,15 @@
 <body>
 <th:block th:replace="fragments/header :: main-header(false)"/>
 
-this is the index page
-<!--from fer example-->
+<div th:replace="fragments/navbar :: main-navbar"></div>
 
+<div class="container">
+
+    <header class="jumbotron my-3">
+        <h1 class="display-3 text-center">Welcome to Spring Blog!</h1>
+    </header>
+
+</div>
 <th:block th:replace="fragments/footer :: main-footer"/>
 
 </body>

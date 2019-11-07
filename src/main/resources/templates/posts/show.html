@@ -2,20 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Index</title>
+    <title>View Post</title>
 <!--    <th:block th:replace="fragments/header :: main-header"/>-->
     <th:block th:replace="fragments/header :: main-header(false)"/>
 
 </head>
 <body>
 <div th:replace="fragments/navbar :: main-navbar"></div>
-<!--<h1>This is the home page</h1>-->
 
+<div class="container mt-3">
 
-<div class = "card">
-    <h1 th:text ="${posts.title}"></h1>
-    <p th:text="${posts.body}"></p>
-    <input type="hidden" name="id" th:value="${posts.id}">
+    <header class="jumbotron my-3">
+        <h1 class="display-3 text-center">View Post</h1>
+    </header>
+
+    <div class="card p-3">
+        <h1 th:text="${posts.title}"></h1>
+        <p th:text="${posts.body}"></p>
+        <input type="hidden" name="id" th:value="${posts.id}">
+        <a th:href="@{'/posts/' + ${posts.id} + '/edit'}" class="btn btn-warning">Edit Post</a>
+        <form th:action="@{'/posts/' + ${posts.id} + '/delete'}" method="post">
+            <button class="btn btn-danger btn-block">Delete Post</button>
+        </form>
+    </div>
+
 </div>
 <th:block th:replace="fragments/footer :: main-footer"/>
 </body>
