@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <title>View Post</title>
@@ -17,13 +17,25 @@
     </header>
 
     <div class="card p-3">
-        <h1 th:text="${post.title}"></h1>
-        <p th:text="${post.body}"></p>
-        <input type="hidden" name="id" th:value="${post.id}">
-        <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-warning">Edit Post</a>
-        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
-            <button class="btn btn-danger btn-block">Delete Post</button>
-        </form>
+<!--        <h1 th:text="${post.title}"></h1>-->
+<!--        <p th:text="${post.body}"></p>-->
+<!--        <input type="hidden" name="id" th:value="${post.id}">-->
+<!--        <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-warning">Edit Post</a>-->
+<!--        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">-->
+<!--            <button class="btn btn-danger btn-block">Delete Post</button>-->
+<!--        </form>-->
+<!--        <ul th:each="images : ${post.images}">-->
+<!--            <li th:src="${images.url}"></li>-->
+<!--        </ul>-->
+        <div class = "card">
+            <h1 th:text ="${post.title}"></h1>
+            <h2>Images:</h2>
+            <div th:each="image : ${post.images}">
+                <h2 th:text="${image.image_title}"></h2>
+                <img th:src="${image.url}">
+            </div>
+            <input type="hidden" name="id" th:value="${post}">
+        </div>
     </div>
 
 </div>

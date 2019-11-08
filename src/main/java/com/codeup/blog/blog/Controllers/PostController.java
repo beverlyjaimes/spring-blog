@@ -1,12 +1,16 @@
 package com.codeup.blog.blog.Controllers;
 
 import com.codeup.blog.blog.Post;
+import com.codeup.blog.blog.PostDetails;
+import com.codeup.blog.blog.PostImage;
+import com.codeup.blog.blog.Repositories.ImageRepo;
 import com.codeup.blog.blog.Repositories.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.awt.*;
 import java.util.List;
 
 
@@ -15,22 +19,24 @@ public class PostController {
 
 
     private final PostRepository postDao;
+    private final ImageRepo imageDao;
 
 
-    public PostController(PostRepository postDao){
+    public PostController(PostRepository postDao, ImageRepo imageDao) {
         this.postDao = postDao;
+        this.imageDao = imageDao;
     }
 
     @GetMapping("/posts")
-    public String index(Model viewModel){
+    public String index(Model viewModel) {
         viewModel.addAttribute("posts", postDao.findAll());
         return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
-    public String show(@PathVariable long id, Model viewModel){
+    public String show(@PathVariable long id, Model viewModel) {
         viewModel.addAttribute("post", postDao.getOne(id));
-       return "posts/show";
+        return "posts/show";
     }
 
     @GetMapping("/posts/search")
@@ -59,16 +65,17 @@ public class PostController {
 
 
     @GetMapping("/posts/create")
-    public String showCreateForm(){
+    public String showCreateForm() {
         return "posts/create";
     }
 
 
-    @PostMapping ("/posts/create")
-    public String create(@RequestParam String title, @RequestParam String body){
+    @PostMapping("/posts/create")
+    public String create(@RequestParam String title, @RequestParam String body) {
         Post post = postDao.save(new Post(title, body));
         return "redirect:/posts/" + post.getId();
     }
+
     @GetMapping("/posts/{id}/edit")
     public String edit(@PathVariable long id, Model viewModel) {
         viewModel.addAttribute("post", postDao.getOne(id));
@@ -90,5 +97,49 @@ public class PostController {
         return "redirect:/posts";
     }
 
+    @GetMapping("/posts/update/{id}")
+    public String updateDetails(@PathVariable long id, @RequestParam String details) {
 
+        Post post = postDao.getOne(id);
+        PostDetails pd = post.getPostDetails();
+        pd.setDetailsDescription(details);
+        post.setPostDetails(pd);
+
+        postDao.save(post);
+
+        return "redirect:/posts/historyOfPosts";
+    }
+
+    @GetMapping("/posts/{id}/historyOfPosts")
+    public String getHistoryOfPost(@PathVariable long id, Model vModel) {
+
+        Post post = postDao.getOne(id);
+
+        vModel.addAttribute("post", post);
+
+        return "posts/historyOfPosts";
+    }
+
+
+//    one to many
+
+    @PostMapping("/posts/{id}/add-image")
+    public String addImage(
+            @PathVariable long id,
+            @RequestParam String image_title,
+            @RequestParam String url) {
+
+
+        PostImage image = new PostImage(image_title, url);
+        image.setPost(postDao.getOne(id));
+        imageDao.save(image);
+
+        return "redirect:/posts";
+
+    }
 }
+
+
+
+
+

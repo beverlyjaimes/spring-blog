@@ -16,6 +16,7 @@
         <h1 class="display-3 text-center">Featured Posts</h1>
     </header>
 
+
     <div class="card p-3 my-3" th:each="post : ${posts}">
         <a th:href="@{'posts/' + ${post.id}}">
             <h1 th:text="${post.title}"></h1>

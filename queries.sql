@@ -1,14 +1,16 @@
-drop database if exists ceres_blog_db;
 
 use ceres_blog_db;
 
 show tables;
 
 describe posts;
-describe pet_details;
+describe posts_details;
+describe images;
 
 
 
 select * from posts;
 
-select * from pet_details;
+select * from posts_details;
+
+select * from images;
