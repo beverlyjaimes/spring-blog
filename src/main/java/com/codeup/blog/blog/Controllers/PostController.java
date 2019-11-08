@@ -1,12 +1,15 @@
 package com.codeup.blog.blog.Controllers;
 
 import com.codeup.blog.blog.Post;
+import com.codeup.blog.blog.User;
 import com.codeup.blog.blog.Repositories.PostRepository;
+import com.codeup.blog.blog.Repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.persistence.GeneratedValue;
 import java.util.List;
 
 
@@ -15,10 +18,12 @@ public class PostController {
 
 
     private final PostRepository postDao;
+    private final UserRepository userDao;
 
 
-    public PostController(PostRepository postDao){
+    public PostController(PostRepository postDao, UserRepository userDao){
         this.postDao = postDao;
+        this.userDao = userDao;
     }
 
     @GetMapping("/posts")
@@ -66,8 +71,11 @@ public class PostController {
 
     @PostMapping ("/posts/create")
     public String create(@RequestParam String title, @RequestParam String body){
-        Post post = postDao.save(new Post(title, body));
+        Post post = new Post(title,body);
+        post.setUser(userDao.getOne(2L));
+        postDao.save(post);
         return "redirect:/posts/" + post.getId();
+
     }
     @GetMapping("/posts/{id}/edit")
     public String edit(@PathVariable long id, Model viewModel) {
@@ -89,6 +97,7 @@ public class PostController {
         postDao.deleteById(id);
         return "redirect:/posts";
     }
+
 
 
 }

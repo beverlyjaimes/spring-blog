@@ -10,5 +10,6 @@ describe pet_details;
 
 
 select * from posts;
+select * from users;
 
 select * from pet_details;
