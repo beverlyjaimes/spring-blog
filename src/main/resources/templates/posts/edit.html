@@ -14,7 +14,7 @@
         <h1 class="display-3 text-center">Edit Post</h1>
     </header>
     <div class="card p-3">
-        <form th:action="'/posts/' + ${post.id} + '/edit'" th:method="post">
+        <form th:action="'/posts/' + ${post.id} + '/edit'" th:method="post" th:object="${post}">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input class="form-control" id="title" type="text" th:value="${post.title}" name="title">
