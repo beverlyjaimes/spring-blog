@@ -62,21 +62,37 @@ public class PostController {
         return postDao.getPostsOfCertainTitleLengthNative();
     }
 
+//
+//    @GetMapping("/posts/create")
+//    public String showCreateForm(){
+//        return "posts/create";
+//    }
+//
+//
+//    @PostMapping ("/posts/create")
+//    public String create(@RequestParam String title, @RequestParam String body){
+//        Post post = new Post(title,body);
+//        post.setUser(userDao.getOne(2L));
+//        postDao.save(post);
+//        return "redirect:/posts/" + post.getId();
 
     @GetMapping("/posts/create")
-    public String showCreateForm(){
+    public String showCreateForm(Model vModel) {
+        vModel.addAttribute("post", new Post());
         return "posts/create";
     }
 
-
-    @PostMapping ("/posts/create")
-    public String create(@RequestParam String title, @RequestParam String body){
-        Post post = new Post(title,body);
-        post.setUser(userDao.getOne(2L));
-        postDao.save(post);
-        return "redirect:/posts/" + post.getId();
+    @PostMapping("/posts/create")
+    public String create(@ModelAttribute Post postToBeCreated,
+                         @RequestParam(name = "timeout") String timeout) {
+        System.out.println("timeout = " + timeout);
+        postToBeCreated.setUser(userDao.getOne(1L));
+        Post savePost = postDao.save(postToBeCreated);
+                 return "redirect:/posts/" + savePost.getId();
 
     }
+
+
     @GetMapping("/posts/{id}/edit")
     public String edit(@PathVariable long id, Model viewModel) {
         viewModel.addAttribute("post", postDao.getOne(id));
