@@ -82,6 +82,8 @@ public class PostController {
         return "posts/create";
     }
 
+//    ask point of timeout?
+
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post postToBeCreated,
                          @RequestParam(name = "timeout") String timeout) {
@@ -89,24 +91,37 @@ public class PostController {
         postToBeCreated.setUser(userDao.getOne(1L));
         Post savePost = postDao.save(postToBeCreated);
                  return "redirect:/posts/" + savePost.getId();
-
     }
 
-
     @GetMapping("/posts/{id}/edit")
-    public String edit(@PathVariable long id, Model viewModel) {
+    public String editForm(@PathVariable long id, Model viewModel) {
         viewModel.addAttribute("post", postDao.getOne(id));
         return "posts/edit";
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String update(@PathVariable long id, @RequestParam String title, @RequestParam String body) {
-        Post oldPost = postDao.getOne(id);
-        oldPost.setTitle(title);
-        oldPost.setBody(body);
-        postDao.save(oldPost);
+    public String update(@PathVariable long id, @RequestParam String title, @ModelAttribute Post post) {
+        post.setUser(userDao.getOne(2L));
+        postDao.save(post);
         return "redirect:/posts/" + id;
     }
+//
+//    @GetMapping("/posts/{id}/edit")
+//    public String edit(@PathVariable long id, Model viewModel) {
+//        viewModel.addAttribute("post", postDao.getOne(id));
+//        return "posts/edit";
+//    }
+//
+//    @PostMapping("/posts/{id}/edit")
+//    public String update(@PathVariable long id, @RequestParam String title, @RequestParam String body) {
+//        Post oldPost = postDao.getOne(id);
+//        oldPost.setTitle(title);
+//        oldPost.setBody(body);
+//        postDao.save(oldPost);
+//        return "redirect:/posts/" + id;
+//    }
+
+
 
     @PostMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id) {
