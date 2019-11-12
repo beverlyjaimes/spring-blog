@@ -1,9 +1,11 @@
 package com.codeup.blog.blog.Controllers;
 
+import com.codeup.blog.blog.EmailService;
 import com.codeup.blog.blog.Post;
 import com.codeup.blog.blog.User;
 import com.codeup.blog.blog.Repositories.PostRepository;
 import com.codeup.blog.blog.Repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,9 @@ public class PostController {
 
     private final PostRepository postDao;
     private final UserRepository userDao;
+
+    @Autowired
+    EmailService emailService;
 
 
     public PostController(PostRepository postDao, UserRepository userDao){
@@ -88,8 +93,9 @@ public class PostController {
     public String create(@ModelAttribute Post postToBeCreated,
                          @RequestParam(name = "timeout") String timeout) {
         System.out.println("timeout = " + timeout);
-        postToBeCreated.setUser(userDao.getOne(1L));
+        postToBeCreated.setUser(userDao.getOne(3L));
         Post savePost = postDao.save(postToBeCreated);
+        emailService.prepareAndSend(postToBeCreated, "Post created", "A post has been created with the id of " + postToBeCreated.getId());
                  return "redirect:/posts/" + savePost.getId();
     }
 
@@ -101,7 +107,7 @@ public class PostController {
 
     @PostMapping("/posts/{id}/edit")
     public String update(@PathVariable long id, @RequestParam String title, @ModelAttribute Post post) {
-        post.setUser(userDao.getOne(2L));
+        post.setUser(userDao.getOne(3L));
         postDao.save(post);
         return "redirect:/posts/" + id;
     }

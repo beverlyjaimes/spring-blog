@@ -6,3 +6,6 @@ insert into posts (title, body, user_id) values ('Nannopterum harrisi', 'Fusce c
 insert into users (id, email, password, username) value
 (1, 'user1@gmail.com', 'password', 'userOne'),
     (2, 'user2@gmail.com', 'password2', 'userTwo');
+
+insert into users (id, email, password, username) value
+(3, '66997d916c-9f4a30@inbox.mailtrap.io', 'pwds', 'userThree');

@@ -22,11 +22,17 @@
 
         <input type="hidden" name="id" th:value="${post.id}">
         <p>Created by: <span th:text="${post.user.email}"></span></p>
-
-        <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-warning">Edit Post</a>
-        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
+        <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="get" class="btn btn-warning">
+            <input type="hidden" name="id" th:value="${post.id}">
+            <button>Edit</button>
+        </form>
+<!--        <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-warning" th:method="get">Edit Post</a>-->
+<!--        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">-->
+        <form method="post" action="/posts/delete">
+            <input type="hidden" name="id" th:value="${post.id}">
             <button class="btn btn-danger btn-block">Delete Post</button>
         </form>
+
     </div>
 
 </div>
