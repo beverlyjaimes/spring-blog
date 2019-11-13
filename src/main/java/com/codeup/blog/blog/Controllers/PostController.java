@@ -1,8 +1,7 @@
 package com.codeup.blog.blog.Controllers;
 
-import com.codeup.blog.blog.EmailService;
+import com.codeup.blog.blog.Services.EmailService;
 import com.codeup.blog.blog.Post;
-import com.codeup.blog.blog.User;
 import com.codeup.blog.blog.Repositories.PostRepository;
 import com.codeup.blog.blog.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.persistence.GeneratedValue;
 import java.util.List;
 
 

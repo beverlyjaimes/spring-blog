@@ -12,10 +12,10 @@ public class User {
     @Column(columnDefinition = "Int(11) UNSIGNED")
     private long id;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 200, unique = true)
     private String username;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 200, unique = true)
     private String email;
 
     @Column(nullable = false, length = 200)
@@ -40,6 +40,16 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
+//    the following is a copy constructor (alternative to cloning an object)
+
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
+
 
     public long getId() {
         return id;
