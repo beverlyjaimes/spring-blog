@@ -22,22 +22,11 @@
 
         <input type="hidden" name="id" th:value="${post.id}">
         <p>Created by: <span th:text="${post.user.email}"></span></p>
-        <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="get" class="btn btn-warning">
-            <input type="hidden" name="id" th:value="${post.id}">
-            <button>Edit</button>
-        </form>
-<!--        <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-warning" th:method="get">Edit Post</a>-->
-<!--        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">-->
-        <form method="post" action="/posts/delete">
-            <input type="hidden" name="id" th:value="${post.id}">
-            <button class="btn btn-danger btn-block">Delete Post</button>
-        </form>
-
 <!--        security exercise-->
         <div sec:authorize="isAuthenticated()">
 
             <th:block th:if="${post.user.id == #authentication.principal.id}">
-                <a th:href="@{'/ads/' + ${post.id} + '/edit'}" class="btn btn-warning">Edit Ad</a>
+                    <button th:href="@{'/ads/' + ${post.id} + '/edit'}" class="btn btn-warning btn-block">Edit Post</button>
                 <form th:action="@{'/ads/' + ${post.id} + '/delete'}" method="post">
                     <button class="btn btn-danger btn-block">Delete Ad</button>
                 </form>

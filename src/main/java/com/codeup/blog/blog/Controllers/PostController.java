@@ -4,7 +4,9 @@ import com.codeup.blog.blog.Services.EmailService;
 import com.codeup.blog.blog.Post;
 import com.codeup.blog.blog.Repositories.PostRepository;
 import com.codeup.blog.blog.Repositories.UserRepository;
+import com.codeup.blog.blog.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -65,37 +67,21 @@ public class PostController {
         return postDao.getPostsOfCertainTitleLengthNative();
     }
 
-//
-//    @GetMapping("/posts/create")
-//    public String showCreateForm(){
-//        return "posts/create";
-//    }
-//
-//
-//    @PostMapping ("/posts/create")
-//    public String create(@RequestParam String title, @RequestParam String body){
-//        Post post = new Post(title,body);
-//        post.setUser(userDao.getOne(2L));
-//        postDao.save(post);
-//        return "redirect:/posts/" + post.getId();
-
     @GetMapping("/posts/create")
     public String showCreateForm(Model vModel) {
         vModel.addAttribute("post", new Post());
         return "posts/create";
     }
 
-//    ask point of timeout?
 
-    @PostMapping("/posts/create")
-    public String create(@ModelAttribute Post postToBeCreated,
-                         @RequestParam(name = "timeout") String timeout) {
-        System.out.println("timeout = " + timeout);
-        postToBeCreated.setUser(userDao.getOne(3L));
-        Post savePost = postDao.save(postToBeCreated);
-        emailService.prepareAndSend(postToBeCreated, "Post created", "A post has been created with the id of " + postToBeCreated.getId());
-                 return "redirect:/posts/" + savePost.getId();
-    }
+@PostMapping("/posts/create")
+public String create(@ModelAttribute Post postToBeCreated) {
+    User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    postToBeCreated.setUser(currentUser);
+    Post savePost = postDao.save(postToBeCreated);
+    emailService.prepareAndSend(postToBeCreated, "Post created", "A post has been created with the id of " + postToBeCreated.getId());
+    return "redirect:/posts/" + savePost.getId();
+}
 
     @GetMapping("/posts/{id}/edit")
     public String editForm(@PathVariable long id, Model viewModel) {
@@ -105,7 +91,7 @@ public class PostController {
 
     @PostMapping("/posts/{id}/edit")
     public String update(@PathVariable long id, @RequestParam String title, @ModelAttribute Post post) {
-        post.setUser(userDao.getOne(3L));
+        post.setUser(userDao.getOne(id));
         postDao.save(post);
         return "redirect:/posts/" + id;
     }

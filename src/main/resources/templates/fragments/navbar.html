@@ -1,29 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <nav class="navbar navbar-light bg-light navbar-expand-md" th:fragment="main-navbar">
     <a class="navbar-brand" href="/">Spring Blog</a>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav d-flex align-items-center mx-3">
         <li class="nav-item mx-3"><a href="/posts">View Posts</a></li>
         <li class="nav-item mx-3"><a href="/posts/create">Create Posts</a></li>
-<!--        security exercise logout-->
-        <li class="d-flex align-items-center mx-3">
-            <form class="d-flex align-items-center" th:action="@{/logout}" th:method="post">
-                <button style="border:none !important" class="btn-link btn p-0">Logout</button>
-            </form>
-        </li>
     </ul>
-    <ul class="navbar-nav ml-auto">
+
+    <ul sec:authorize="!isAuthenticated()" class="navbar-nav ml-auto" >
         <li class="nav-item mx-3"><a href="/register">Register</a></li>
         <li class="nav-item mx-3"><a href="/login">Login</a></li>
     </ul>
 
+    <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto" >
+        <li>
+            <form th:action="@{/logout}" th:method="post">
+                <button style="border:none !important" class="btn-link btn p-0">Logout</button>
+            </form>
+        </li>
+    </ul>
+
 </nav>
 
-<nav th:fragment="second-navbar">
-    <ul >
-        <li><a href="/">HOME</a></li>
-        <li><a href="/join">JOIN</a></li>
-        <li><a href="/hello">HELLO</a></li>
-    </ul>
-</nav>
+<!--<nav th:fragment="second-navbar">-->
+<!--    <ul >-->
+<!--        <li><a href="/">HOME</a></li>-->
+<!--        <li><a href="/join">JOIN</a></li>-->
+<!--        <li><a href="/hello">HELLO</a></li>-->
+<!--    </ul>-->
+<!--</nav>-->
