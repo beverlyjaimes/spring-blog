@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>View Post</title>
-<!--    <th:block th:replace="fragments/header :: main-header"/>-->
-    <th:block th:replace="fragments/header :: main-header(false)"/>
+    <th:block th:replace="fragments/header :: main-header"/>
+<!--    <th:block th:replace="fragments/header :: main-header(false)"/>-->
 
 </head>
 <body>
@@ -16,26 +16,27 @@
         <h1 class="display-3 text-center">View Post</h1>
     </header>
 
-    <div class="card p-3">
+    <div class="card p-3 text-center">
         <h1 th:text="${post.title}"></h1>
         <p th:text="${post.body}"></p>
 
         <input type="hidden" name="id" th:value="${post.id}">
-        <p>Created by: <span th:text="${post.user.email}"></span></p>
+        <h6>Created by: <span th:text="${post.user.email}"></span></h6>
 <!--        security exercise-->
         <div sec:authorize="isAuthenticated()">
-
-            <th:block th:if="${post.user.id == #authentication.principal.id}">
-                    <button th:href="@{'/ads/' + ${post.id} + '/edit'}" class="btn btn-warning btn-block">Edit Post</button>
-                <form th:action="@{'/ads/' + ${post.id} + '/delete'}" method="post">
-                    <button class="btn btn-danger btn-block">Delete Ad</button>
-                </form>
+        <th:block th:if="${post.user.id == #authentication.principal.id}">
+            <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-secondary btn-lg">Edit Post</a>
+            <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
+                <button class="btn btn-danger btn-lg">Delete Post</button>
+            </form>
             </th:block>
         </div>
-
+    </div>
     </div>
 
-</div>
+
+
 <th:block th:replace="fragments/footer :: main-footer"/>
+
 </body>
 </html>

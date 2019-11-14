@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Index</title>
 <!--    <th:block th:replace="fragments/header :: main-header"/>-->
-    <th:block th:replace="fragments/header :: main-header(false)"/>
+    <th:block th:replace="fragments/header :: main-header"/>
 <!--    <th:block th:replace="fragments/header :: header"/>-->
     <title>All Posts</title>
 </head>
@@ -17,7 +17,7 @@
         <h1 class="display-3 text-center">Featured Posts</h1>
     </header>
 
-    <div class="card p-3 my-3" th:each="post : ${posts}">
+    <div class="card p-3 my-3 text-center" th:each="post : ${posts}">
         <a th:href="@{'posts/' + ${post.id}}">
             <h1 th:text="${post.title}"></h1>
             <p th:text="${post.body}"></p>

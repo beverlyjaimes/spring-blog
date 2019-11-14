@@ -1,3 +1,9 @@
 body {
-    background-color: darkolivegreen;
+    background-color: darksalmon;
+    font-family: 'Playfair Display', serif;
 }
+
+a {
+    color: grey;
+}
+

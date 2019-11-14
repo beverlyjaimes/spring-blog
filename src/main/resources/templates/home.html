@@ -6,23 +6,22 @@
     <title>Home</title>
 </head>
 <body>
-<th:block th:replace="fragments/header :: main-header(false)"/>
+<th:block th:replace="fragments/header :: main-header"/>
 
 <div th:replace="fragments/navbar :: main-navbar"></div>
 
 <div class="container">
 
     <header class="jumbotron my-3">
-        <h1 class="display-3 text-center">Welcome to Spring Blog!</h1>
-    </header>
-
-    <div sec:authorize="isAuthenticated()">
-        This content is only shown to authenticated users.
+        <h1 class="display-3 text-center">Welcome! </h1>
+    <h6 class="text-center" sec:authorize="isAuthenticated()">
 
         User ID: <span th:text="${#authentication.principal.id}"/>
         Username: <span th:text="${#authentication.principal.username}"/>
         Email: <span th:text="${#authentication.principal.email}"/>
-    </div>
+    </h6>
+    </header>
+
 
 </div>
 <th:block th:replace="fragments/footer :: main-footer"/>

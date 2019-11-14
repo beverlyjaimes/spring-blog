@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <title>Sign up</title>
+    <th:block th:replace="fragments/header :: main-header"/>
 </head>
 <body>
-<h1>Create an account</h1>
-<form th:action="@{/sign-up}" method="POST" th:object="${user}">
+
+<nav class="navbar navbar-light bg-light navbar-expand-md">
+    <a class="navbar-brand" href="/">Tell Me About It!</a>
+</nav>
+<div class="jumbotron my-3">
+<form class="text-center" th:action="@{/sign-up}" method="POST" th:object="${user}">
+<h1 class="navbar-brand">Create an account</h1>
+    <br>
     <label for="username">Username</label>
     <input id="username" th:field="*{username}" />
 
@@ -16,7 +23,8 @@
     <label for="password">Password</label>
     <input id="password" type="password" th:field="*{password}" />
 
-    <input value="Sign me up!" type="submit" />
+    <input class="btn btn-light" value="Sign me up!" type="submit" />
 </form>
+</div>
 </body>
 </html>

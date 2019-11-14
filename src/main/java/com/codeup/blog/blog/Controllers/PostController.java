@@ -91,25 +91,11 @@ public String create(@ModelAttribute Post postToBeCreated) {
 
     @PostMapping("/posts/{id}/edit")
     public String update(@PathVariable long id, @RequestParam String title, @ModelAttribute Post post) {
-        post.setUser(userDao.getOne(id));
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(currentUser);
         postDao.save(post);
         return "redirect:/posts/" + id;
     }
-//
-//    @GetMapping("/posts/{id}/edit")
-//    public String edit(@PathVariable long id, Model viewModel) {
-//        viewModel.addAttribute("post", postDao.getOne(id));
-//        return "posts/edit";
-//    }
-//
-//    @PostMapping("/posts/{id}/edit")
-//    public String update(@PathVariable long id, @RequestParam String title, @RequestParam String body) {
-//        Post oldPost = postDao.getOne(id);
-//        oldPost.setTitle(title);
-//        oldPost.setBody(body);
-//        postDao.save(oldPost);
-//        return "redirect:/posts/" + id;
-//    }
 
 
 
