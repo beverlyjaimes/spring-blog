@@ -78,4 +78,17 @@ public class PostsIntegrationTest {
                 .param("body", "asdasdasd"))
                 .andExpect(status().is3xxRedirection());
     }
+
+    @Test
+    public void testShowAd() throws Exception {
+
+        Post existingPost = postsDao.findAll().get(0);
+
+        // Makes a Get request to /ads/{id} and expect a redirection to the Ad show page
+        this.mvc.perform(get("/ads/" + existingAd.getId()))
+                .andExpect(status().isOk())
+                // Test the dynamic content of the page
+                .andExpect(content().string(containsString(existingAd.getDescription())))
+                .andExpect(content().string(containsString(existingAd.getTitle())));
+    }
 }
